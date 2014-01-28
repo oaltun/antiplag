@@ -25,7 +25,8 @@
 ###############################################################
 #Options
 
-# list of blocks to extract. At most 20th, because we gather from "top 20" from atomiq output. Starts from 1.
+# list of blocks to extract. At most 20th, because we gather from
+# "top 20" from atomiq output. Starts from 1.
 blocks = [1, 3, 7]
 #blocks = range(1,7)
 
@@ -134,7 +135,8 @@ with open(path_to_atomiq_results, 'r') as f:
             row.append(td.text)
             td = td.find_next('td')
 
-        ### if we are interested in this row extract data from row and append to the record table
+        ### if we are interested in this row extract data from row
+        ### and append to the record table
         if i in blocks:
             file1, size, range1, file2, range2 = row
             file1 = file1.strip()[1:]
