@@ -1,6 +1,5 @@
 ###########################################################
-# VERSION LOG
-# 2014-January-28: Initial version written by Oguz Altun
+# ATOMIQEXTRACT.PY
 #
 # INFO
 #
@@ -9,9 +8,9 @@
 # preparing plagiarism reports.
 #
 # Specifically, this script
-#     1) extracts specific blocks
-#     2) show matching lines side by side
-#     3) write a little more printer friendly tables
+#     1) extracts specific blocks,
+#     2) shows matching lines side by side,
+#     3) writes a little more printer friendly tables.
 #
 # INSTALLATION & USAGE
 #
