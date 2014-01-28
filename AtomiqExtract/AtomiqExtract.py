@@ -1,9 +1,8 @@
 ###########################################################
-# Version log
+# VERSION LOG
 # 2014-January-28: Initial version written by Oguz Altun
-
-######################################################
-# Info
+#
+# INFO
 #
 # This script extracts matches from Atomiq.Console_1.1.3.94.exe
 # html output, and outputs to another html page. It is intended for
@@ -13,33 +12,31 @@
 #     1) extracts specific blocks
 #     2) show matching lines side by side
 #     3) write a little more printer friendly tables
-
-###################################################################
-# Installation & Usage
 #
-# 1) Script needs BeautifulSoup package. install it if it is not in
+# INSTALLATION & USAGE
+#
+# 1) Script needs BeautifulSoup package. Install it if it is not in
 #    your path.
 # 2) Run Atomiq.Console yourself to get its output html file.
 # 3) Edit the options below, and run the script.
+#
+# OPTIONS
 
-###############################################################
-#Options
-
-# list of blocks to extract. At most 20th, because we gather from
+# List of blocks to extract. At most 20th, because we gather from
 # "top 20" from atomiq output. Starts from 1.
 blocks = [1, 3, 7]
 #blocks = range(1,7)
 
-#the directory submissions
+# The directory submissions
 path_to_submissions_dir = '../submissions'
 
-# path to atomiq output file.
+# Path to atomiq output file.
 path_to_atomiq_results = 'AtomiqResults.htm'
 
-# path to output html file
+# Path to output html file
 path_to_output_file = 'AtomiqExtractResults.htm'
 
-# you can modify the output by modifying header, footer, and block
+# You can modify the output by modifying header, footer, and block
 # templates below
 header_template = """
 <html>
@@ -99,12 +96,12 @@ Right: {file2}, begin: {begin2}, end: {end2}
 """
 
 #######################################################
-### script starts here ###
+### Script starts here
 from bs4 import BeautifulSoup
 
 import os
 
-#### prepare path and import pymeta
+#### Prepare path and import pymeta
 filedir = os.path.dirname(os.path.realpath(__file__))
 print('- Current Dir: ' + filedir)
 os.chdir(filedir)
@@ -114,28 +111,28 @@ spardir = os.path.dirname(subdir)
 print('- Submission Dir: ' + subdir)
 print('- Submission Parent Dir: ' + spardir)
 
-### we accept only block ids between 1 and 20
+### We accept only block ids between 1 and 20
 for i in blocks:
     if i > 20 or i < 1:
         raise Exception('Block ID needs to between 1 and 20')
 
-### gather info from the atomiq output into the "records" table.
+### Gather info from the atomiq output into the "records" table.
 records = []
 with open(path_to_atomiq_results, 'r') as f:
-    ### find the first cell of the table we are interested in
+    ### Find the first cell of the table we are interested in
     soup = BeautifulSoup(f)
     tables = soup.find_all('table')
     table = tables[3]
     td = table.find('td')
 
     for i in range(21):
-        ### read next row
+        ### Read next row
         row = []
         for c in range(5):
             row.append(td.text)
             td = td.find_next('td')
 
-        ### if we are interested in this row extract data from row
+        ### If we are interested in this row extract data from row
         ### and append to the record table
         if i in blocks:
             file1, size, range1, file2, range2 = row
@@ -146,28 +143,28 @@ with open(path_to_atomiq_results, 'r') as f:
             begin2, end2 = [int(part) for part in range2.split(' - ')]
             records.append([file1, begin1, end1, file2, begin2, end2, size, i])
 
-### write the extract output file
+### Write the extract output file
 with open(path_to_output_file, 'w') as fe:
-    ### write header
+    ### Write header
     fe.write(header_template)
 
-    ### for each block we are interested
+    ### For each block we are interested
     for i, r in enumerate(records):
         file1, begin1, end1, file2, begin2, end2, size, blockno = r
 
-        ### read first file
+        ### Read first file
         with open(spardir + '/' + file1, 'r') as fs:
             lines = fs.readlines()
             lines = lines[begin1 + 1:end1 + 2]
             match1 = ''.join(lines)
 
-        ### read second file
+        ### Read second file
         with open(spardir + '/' + file2, 'r') as fs:
             lines = fs.readlines()
             lines = lines[begin2 + 1:end2 + 2]
             match2 = ''.join(lines)
 
-        ### write block
+        ### Write block
         fe.write(block_template.format(
             blockno = str(blockno),
             size = str(size),
