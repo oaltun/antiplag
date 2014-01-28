@@ -106,13 +106,13 @@ import os
 
 #### prepare path and import pymeta
 filedir = os.path.dirname(os.path.realpath(__file__))
-print "starting in directory below:\n", filedir, "\n"
+print('- Current Dir: ' + filedir)
 os.chdir(filedir)
 
 subdir = os.path.abspath(path_to_submissions_dir)
 spardir = os.path.dirname(subdir)
-print(subdir)
-print(spardir)
+print('- Submission Dir: ' + subdir)
+print('- Submission Parent Dir: ' + spardir)
 
 ### we accept only block ids between 1 and 20
 for i in blocks:
@@ -160,7 +160,6 @@ with open(path_to_output_file, 'w') as fe:
             lines = fs.readlines()
             lines = lines[begin1 + 1:end1 + 2]
             match1 = ''.join(lines)
-            print('read ' + file1)
 
 
         ### read second file
@@ -168,7 +167,6 @@ with open(path_to_output_file, 'w') as fe:
             lines = fs.readlines()
             lines = lines[begin2 + 1:end2 + 2]
             match2 = ''.join(lines)
-            print('read {}\n---'.format(file2))
 
         ### write block
         fe.write(block_template.format(
@@ -186,5 +184,6 @@ with open(path_to_output_file, 'w') as fe:
 
     fe.write(footer_template)
 
-print('wrote to {}'.format(path_to_output_file))
-print('done.')
+print('- Wrote matches to {}'.format(
+    os.path.abspath(path_to_output_file)))
+print('- Done.')
