@@ -161,7 +161,6 @@ with open(path_to_output_file, 'w') as fe:
             lines = lines[begin1 + 1:end1 + 2]
             match1 = ''.join(lines)
 
-
         ### read second file
         with open(spardir + '/' + file2, 'r') as fs:
             lines = fs.readlines()
