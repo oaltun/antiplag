@@ -1,27 +1,29 @@
 ###########################################################
-### Version log ###
-### 2014-January-28: Initial version written by Oguz Altun
+# Version log
+# 2014-January-28: Initial version written by Oguz Altun
 
 ######################################################
-### Info ###
-
-### This script extracts matches from Atomiq.Console_1.1.3.94.exe html output, and outputs to another html page. It is intended for preparing plagiarism reports.
-
-### Specifically, this script 1) extracts specific blocks 2) show matching lines side by side 3) write a little more printer friendly tables, to print a reports.
+# Info
+#
+# This script extracts matches from Atomiq.Console_1.1.3.94.exe
+# html output, and outputs to another html page. It is intended for
+# preparing plagiarism reports.
+#
+# Specifically, this script
+#     1) extracts specific blocks
+#     2) show matching lines side by side
+#     3) write a little more printer friendly tables
 
 ###################################################################
-### Installation & Usage ###
-
-### Script needs BeautifulSoup package. install it if it is not in your path.
-
-### I)
-
-### 	Run Atomiq.Console yourself to get its output html file.
-
-### 	Edit the options below, and run the script.
+# Installation & Usage
+#
+# 1) Script needs BeautifulSoup package. install it if it is not in
+#    your path.
+# 2) Run Atomiq.Console yourself to get its output html file.
+# 3) Edit the options below, and run the script.
 
 ###############################################################
-### options ###
+#Options
 
 # list of blocks to extract. At most 20th, because we gather from "top 20" from atomiq output. Starts from 1.
 blocks = [1, 3, 7]
@@ -36,7 +38,8 @@ path_to_atomiq_results = 'AtomiqResults.htm'
 # path to output html file
 path_to_output_file = 'AtomiqExtractResults.htm'
 
-### you can modify the output by modifying header, footer, and block templates below
+# you can modify the output by modifying header, footer, and block
+# templates below
 header_template = """
 <html>
 <head>
@@ -110,6 +113,10 @@ spardir = os.path.dirname(subdir)
 print(subdir)
 print(spardir)
 
+### we accept only block ids between 1 and 20
+for i in blocks:
+    if i > 20 or i < 1:
+        raise Exception('Block ID needs to between 1 and 20')
 
 ### gather info from the atomiq output into the "records" table.
 records = []
