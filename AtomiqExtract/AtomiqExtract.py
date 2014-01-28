@@ -174,8 +174,8 @@ with open(path_to_output_file, 'w') as fe:
             file2 = file2,
             begin2 = str(begin2),
             end2 = str(end2),
+            match1 = str(match1),
             match2 = str(match2),
-            match1 = str(match1)
             ))
 
     fe.write(footer_template)
