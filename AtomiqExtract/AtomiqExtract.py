@@ -114,7 +114,7 @@ print('- Submission Parent Dir: ' + spardir)
 ### We accept only block ids between 1 and 20
 for i in blocks:
     if i > 20 or i < 1:
-        raise Exception('Block ID needs to between 1 and 20')
+        raise Exception('Block ID needs to be between 1 and 20')
 
 ### Gather info from the atomiq output into the "records" table.
 records = []
